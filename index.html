@@ -110,6 +110,9 @@
             </div>
         </div>
     </header>
+    <div id="list">
+
+    </div>
     
 </body>
 </html>
@@ -175,7 +178,8 @@ let setData = (data) =>{
 
         container.append(videoBox)
     })
-    document.querySelector('body').append(container)
+    document.querySelector('#list').innerHTML = " ";
+    document.querySelector('#list').append(container)
 }
 
 
@@ -195,6 +199,24 @@ let setData = (data) =>{
         }
     }
    
+// ------------------setting popular -----------------
+    let popular = async() =>{
+
+        if(document.getElementsByTagName('input').value == null)
+        {
+            let  popular = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&order=viewCount&key=${apiKey}`;
+            try{
+                let res = await fetch(popular)
+                let data  =  await res.json();
+                setData(data.items)
+            }
+            catch(err)
+            {
+                console.log(err)
+            }
+        }
+    }
+    window.onload(popular())
 
 
 
@@ -202,4 +224,7 @@ let setData = (data) =>{
 // ------------------------refData------------
 
 // <iframe width="560" height="315" src="https://www.youtube.com/embed/gbhLjJx6QLE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+//  currently we are working on popular data loading on this page--------------------------------------------------------------------------------------------------
+
 </script>
